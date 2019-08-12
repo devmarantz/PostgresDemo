@@ -21,7 +21,7 @@ async function createPlayground() {
   const query =
     "CREATE TABLE playground (equip_id serial PRIMARY KEY,type varchar (50) NOT NULL, color varchar (25) NOT NULL,location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),install_date date);";
   try {
-    const result = await client.query(query);
+    const result = await pool.query(query);
     console.log(result);
   } catch (err) {
     console.log(`\n(!) An error has occurred: ${err}\n`);
@@ -32,7 +32,7 @@ async function insertData() {
   const query =
     "INSERT INTO playground (type, color, location, install_date) VALUES ('slide', 'blue', 'south', '2017-04-28');";
   try {
-    const result = await client.query(query);
+    const result = await pool.query(query);
     console.log(result);
   } catch (err) {
     console.log(`\n(!) An error has occurred: ${err}\n`);
@@ -43,7 +43,7 @@ async function readData() {
   console.log('***********Reading Table');
   const query = 'SELECT * from playground;';
   try {
-    const result = await client.query(query);
+    const result = await pool.query(query);
     console.log(result);
   } catch (err) {
     console.log(`\n(!) An error has occurred: ${err}\n`);
@@ -51,10 +51,9 @@ async function readData() {
 }
 async function deleteTable() {
   console.log('***********Deleting Table');
-  const query =
-    'DROP TABLE [ IF EXISTS ] playground [, ...] [ CASCADE | RESTRICT ]';
+  const query = 'DROP TABLE playground;';
   try {
-    const result = await client.query(query);
+    const result = await pool.query(query);
     console.log(result);
   } catch (err) {
     console.log(`\n(!) An error has occurred: ${err}\n`);
@@ -99,4 +98,5 @@ async function app() {
 }
 client.connect();
 app();
+// createPlayground();
 client.end();
