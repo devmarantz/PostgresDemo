@@ -50,6 +50,7 @@ async function readData() {
   const query = 'SELECT * from playground;';
   try {
     const result = await pool.query(query);
+
     console.log(result);
   } catch (err) {
     console.log(`\n(!) An error has occurred: ${err}\n`);
