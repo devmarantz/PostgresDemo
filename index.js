@@ -8,7 +8,7 @@ const pool = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_URL,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT
+  port: process.env.DB_PORT,
 });
 
 // Doesn't support concurrent transactions, double check though...
@@ -68,40 +68,43 @@ async function deleteTable() {
 }
 async function app() {
   let continueLoop = true;
-  while (continueLoop) {
-    console.log('Simple Postgress node app ');
-    console.log('1) Create Table');
-    console.log('2) Insert Data');
-    console.log('3) Read Data');
-    console.log('4) Delete Table');
-    console.log('5) Exit');
-    const option = readlineSync.question('Select an option: ');
-    // console.clear();
-    switch (option) {
-      case '1':
-        console.log('option 1 was choosen');
-        await createPlayground();
-        break;
-      case '2':
-        console.log('option 2 was choosen');
-        await insertData();
-        break;
-      case '3':
-        console.log('option 3 was choosen');
-        await readData();
-        break;
-      case '4':
-        console.log('option 4 was choosen');
-        await deleteTable();
-        break;
-      case '5':
-        console.log('Exiting, good bye!');
-        continueLoop = false;
-        break;
-      default:
-        console.log('Not an option');
-    }
-  }
+  await createPlayground();
+  await insertData();
+  await readData();
+  // while (continueLoop) {
+  //   console.log('Simple Postgress node app ');
+  //   console.log('1) Create Table');
+  //   console.log('2) Insert Data');
+  //   console.log('3) Read Data');
+  //   console.log('4) Delete Table');
+  //   console.log('5) Exit');
+  //   const option = readlineSync.question('Select an option: ');
+  //   // console.clear();
+  //   switch (option) {
+  //     case '1':
+  //       console.log('option 1 was choosen');
+  //       await createPlayground();
+  //       break;
+  //     case '2':
+  //       console.log('option 2 was choosen');
+  //       await insertData();
+  //       break;
+  //     case '3':
+  //       console.log('option 3 was choosen');
+  //       await readData();
+  //       break;
+  //     case '4':
+  //       console.log('option 4 was choosen');
+  //       await deleteTable();
+  //       break;
+  //     case '5':
+  //       console.log('Exiting, good bye!');
+  //       continueLoop = false;
+  //       break;
+  //     default:
+  //       console.log('Not an option');
+  //   }
+  // }
 }
 // client.connect();
 app();
